@@ -1,3 +1,5 @@
+package tn.esprit.gestionzoo.entities;
+import tn.esprit.gestionzoo.entities.Animal;
 public class Zoo {
 
     Animal[] animals;
@@ -16,21 +18,22 @@ public class Zoo {
 
     }
 
-    void displayZoo() {
+    public void displayZoo() {
         System.out.println("Name: " + name + ", City: " + city + ", N° Cages/Animals: " + nbrCages);
     }
 
-    boolean addAnimal(Animal animal) {
+    public boolean addAnimal(Animal animal) {
         if (searchAnimal(animal) != -1)
             return false;
-        if (nbrAnimals == nbrCages)
+        if (isZooFull()) {
             return false;
+        }
         animals[nbrAnimals] = animal;
         nbrAnimals++;
         return true;
     }
 
-    boolean removeAnimal(Animal animal) {
+    public boolean removeAnimal(Animal animal) {
         int indexAnimal = searchAnimal(animal);
         if (indexAnimal == -1)
             return false;
@@ -42,14 +45,14 @@ public class Zoo {
         return true;
     }
 
-    void displayAnimals() {
+    public void displayAnimals() {
         System.out.println("Liste des animaux de " + name + ":");
         for (int i = 0; i < nbrAnimals; i++) {
             System.out.println(animals[i]);
         }
     }
 
-    int searchAnimal(Animal animal) {
+    public int searchAnimal(Animal animal) {
         int index = -1;
         for (int i = 0; i < nbrAnimals; i++) {
             if (animal.name == animals[i].name)
