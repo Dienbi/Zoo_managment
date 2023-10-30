@@ -1,14 +1,24 @@
 package tn.esprit.gestionzoo.entities;
 
-public class Animal {
+import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
 
-    String family, name;
-    int age;
-    boolean isMammal;
+public sealed class Animal permits Aquatic, Terrestrial {
+
+    private String family, name;
+    private int age;
+    private boolean isMammal;
+
 
     public Animal() {
-
     }
+
+    public Animal(String family, String name, int age, boolean isMammal) {
+        this.family = family;
+        this.name = name;
+        this.age = age;
+        this.isMammal = isMammal;
+    }
+
 
     public String getFamily() {
         return family;
@@ -30,11 +40,11 @@ public class Animal {
         return age;
     }
 
-    public void setAge(int age) {
-        if (age < 0) {
-            throw new IllegalArgumentException("L'âge ne doit pas être négatif");
-        }
-        this.age = age;
+    public void setAge(int age) throws InvalidAgeException {
+        if (age < 0)
+            throw new InvalidAgeException("The age must a positive number");
+        else
+            this.age = age;
     }
 
     public boolean isMammal() {
@@ -45,20 +55,9 @@ public class Animal {
         isMammal = mammal;
     }
 
-    public Animal(String family, String name, int age, boolean isMammal) {
-        this.family = family;
-        this.name = name;
-        this.age = age;
-        this.isMammal = isMammal;
-    }
 
     @Override
     public String toString() {
-        return "tn.esprit.gestionzoo.entities.Animal{" +
-                "family='" + family + '\'' +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", isMammal=" + isMammal +
-                '}';
+        return "Animal{ Family:" + family + ", Name: " + name + ", Age: " + age + ", isMammal: " + isMammal + "}";
     }
 }
